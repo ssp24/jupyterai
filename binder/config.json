@@ -9,9 +9,6 @@
             }
         }
     },
-    "api_keys": {
-        "OPENAI_API_KEY": key
-    },
     "completions_model_provider_id": null,
     "completions_fields": {}
 }
