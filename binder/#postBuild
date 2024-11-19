@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Create the target directory if it doesn't exist
+#mkdir -p ~/.local/share/jupyter/jupyter_ai
+
+# Copy the config.json file to the target directory
+#cp binder/config.json ~/.local/share/jupyter/jupyter_ai/config.json
+#cp binder/config_schema.json ~/.local/share/jupyter/jupyter_ai/config_schema.json
