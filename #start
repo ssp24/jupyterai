@@ -1,7 +1,7 @@
 #!/bin/bash
 
-exec jupyter lab --ip 0.0.0.0 --port 8888 --AiExtension.default_language_model=openai-chat:gpt-4
-echo 'This is a test'
+#exec jupyter lab --ip 0.0.0.0 --port 8888 --AiExtension.default_language_model=openai-chat:gpt-4
+#echo 'This is a test'
 
 
 # Create the target directory if it doesn't exist
