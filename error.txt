@@ -1,0 +1,1207 @@
+Found built image, launching...
+Launching server...
+Server requested
+2024-11-19T14:10:17Z [Normal] Successfully assigned curvenote/jupyter-ssp24-jupyterai-yv12ngsm to ip-10-0-1-146.us-east-2.compute.internal
+2024-11-19T14:10:17Z [Normal] Container image "jupyterhub/mybinder.org-tc-init:2020.12.4-0.dev.git.5524.ha41b617b" already present on machine
+2024-11-19T14:10:17Z [Normal] Created container tc-init
+2024-11-19T14:10:17Z [Normal] Started container tc-init
+2024-11-19T14:10:18Z [Normal] Pulling image "166088433508.dkr.ecr.us-east-2.amazonaws.com/binderhub/ssp24-2djupyterai-04589b:6aea5cb62299c5a1d9d1d73c6a34310176c5708a"
+2024-11-19T14:10:18Z [Normal] Successfully pulled image "166088433508.dkr.ecr.us-east-2.amazonaws.com/binderhub/ssp24-2djupyterai-04589b:6aea5cb62299c5a1d9d1d73c6a34310176c5708a" in 105ms (105ms including waiting)
+2024-11-19T14:10:18Z [Normal] Created container notebook
+2024-11-19T14:10:18Z [Normal] Started container notebook
+Server ready at /user/ssp24-jupyterai-yv12ngsm/
+server running at https://hub.binder.curvenote.dev/user/ssp24-jupyterai-yv12ngsm/
+Waiting for build to start...
+Picked Git content provider.
+Cloning into '/tmp/repo2dockersv6gwdax'...
+HEAD is now at 8a16460 Create runtime.txt
+Building conda environment for python=3.11
+Using PythonBuildPack builder
+Step 1/54 : FROM docker.io/library/buildpack-deps:jammy
+Fetching base image...
+Fetching base image...
+Fetching base image...
+Fetching base image...
+Fetching base image...
+Fetching base image...
+Fetching base image...
+ ---> 760f30692921
+Step 2/54 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Running in 3a43b3252f29
+ ---> Removed intermediate container 3a43b3252f29
+ ---> 9645e3ec320e
+Step 3/54 : RUN apt-get -qq update &&     apt-get -qq install --yes --no-install-recommends locales > /dev/null &&     apt-get -qq purge &&     apt-get -qq clean &&     rm -rf /var/lib/apt/lists/*
+ ---> Running in 4522e6bb0ba3
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0m ---> Removed intermediate container 4522e6bb0ba3
+ ---> 455418fe8cac
+Step 4/54 : RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen &&     locale-gen
+ ---> Running in 2bbc4833d1b3
+Generating locales (this might take a while)...
+  en_US.UTF-8... done
+Generation complete.
+ ---> Removed intermediate container 2bbc4833d1b3
+ ---> b7daa30a4abb
+Step 5/54 : ENV LC_ALL=en_US.UTF-8     LANG=en_US.UTF-8     LANGUAGE=en_US.UTF-8
+ ---> Running in 3936bacb033e
+ ---> Removed intermediate container 3936bacb033e
+ ---> 398e3eda1f7b
+Step 6/54 : ENV SHELL=/bin/bash
+ ---> Running in 5db5c6ade37b
+ ---> Removed intermediate container 5db5c6ade37b
+ ---> d78188cf7558
+Step 7/54 : ARG NB_USER
+ ---> Running in 9e7669859223
+ ---> Removed intermediate container 9e7669859223
+ ---> c90b7f38f75d
+Step 8/54 : ARG NB_UID
+ ---> Running in 1d0eb86670f5
+ ---> Removed intermediate container 1d0eb86670f5
+ ---> 95a743cb7efd
+Step 9/54 : ENV USER=${NB_USER}     HOME=/home/${NB_USER}
+ ---> Running in 3a2d465310a8
+ ---> Removed intermediate container 3a2d465310a8
+ ---> 3536eb46a8a2
+Step 10/54 : RUN groupadd         --gid ${NB_UID}         ${NB_USER} &&     useradd         --comment "Default user"         --create-home         --gid ${NB_UID}         --no-log-init         --shell /bin/bash         --uid ${NB_UID}         ${NB_USER}
+ ---> Running in 6b216a94b8e9
+ ---> Removed intermediate container 6b216a94b8e9
+ ---> 3b87c9e5d760
+Step 11/54 : RUN apt-get -qq update &&     apt-get -qq install --yes --no-install-recommends        gettext-base        less        unzip        > /dev/null &&     apt-get -qq purge &&     apt-get -qq clean &&     rm -rf /var/lib/apt/lists/*
+ ---> Running in 358e351766f8
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0m ---> Removed intermediate container 358e351766f8
+ ---> 9a4dbd89f887
+Step 12/54 : EXPOSE 8888
+ ---> Running in f0e6415500ed
+ ---> Removed intermediate container f0e6415500ed
+ ---> 5bec3cf71848
+Step 13/54 : ENV APP_BASE=/srv
+ ---> Running in 56f9c17e42d8
+ ---> Removed intermediate container 56f9c17e42d8
+ ---> 50edb06e7553
+Step 14/54 : ENV CONDA_DIR=${APP_BASE}/conda
+ ---> Running in 22f42b33bb91
+ ---> Removed intermediate container 22f42b33bb91
+ ---> 43c6c9c4e4c7
+Step 15/54 : ENV NB_PYTHON_PREFIX=${CONDA_DIR}/envs/notebook
+ ---> Running in 5963f0025414
+ ---> Removed intermediate container 5963f0025414
+ ---> 0281025087a7
+Step 16/54 : ENV NPM_DIR=${APP_BASE}/npm
+ ---> Running in 9edce3376aee
+ ---> Removed intermediate container 9edce3376aee
+ ---> 9e87c70db26f
+Step 17/54 : ENV NPM_CONFIG_GLOBALCONFIG=${NPM_DIR}/npmrc
+ ---> Running in 3ebaa0f25812
+ ---> Removed intermediate container 3ebaa0f25812
+ ---> 570ae4155e9f
+Step 18/54 : ENV NB_ENVIRONMENT_FILE=/tmp/env/environment.lock
+ ---> Running in 0a117d9ef761
+ ---> Removed intermediate container 0a117d9ef761
+ ---> 04c7ea70b136
+Step 19/54 : ENV MAMBA_ROOT_PREFIX=${CONDA_DIR}
+ ---> Running in 538d430ab71d
+ ---> Removed intermediate container 538d430ab71d
+ ---> 91f5910026c9
+Step 20/54 : ENV MAMBA_EXE=${CONDA_DIR}/bin/mamba
+ ---> Running in fdcea670598d
+ ---> Removed intermediate container fdcea670598d
+ ---> 6ffbf6dd047a
+Step 21/54 : ENV CONDA_PLATFORM=linux-64
+ ---> Running in 954383b38317
+ ---> Removed intermediate container 954383b38317
+ ---> 5ee3955bedeb
+Step 22/54 : ENV KERNEL_PYTHON_PREFIX=${NB_PYTHON_PREFIX}
+ ---> Running in 854b844864c2
+ ---> Removed intermediate container 854b844864c2
+ ---> 4d510754a7b3
+Step 23/54 : ENV PATH=${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
+ ---> Running in ff55c5647b19
+ ---> Removed intermediate container ff55c5647b19
+ ---> d88609656f03
+Step 24/54 : COPY --chown=1000:1000 build_script_files/-2fopt-2fvenv-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-e70a7b /etc/profile.d/activate-conda.sh
+ ---> cee783b6089e
+Step 25/54 : COPY --chown=1000:1000 build_script_files/-2fopt-2fvenv-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2epy-2d3-2e11-2dlinux-2d64-2elock-4045c1 /tmp/env/environment.lock
+ ---> 60b27a980a34
+Step 26/54 : COPY --chown=1000:1000 build_script_files/-2fopt-2fvenv-2flib-2fpython3-2e11-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dbase-2denv-2ebash-6a6072 /tmp/install-base-env.bash
+ ---> 86f079d53d06
+Step 27/54 : RUN TIMEFORMAT='time: %3R' bash -c 'time /tmp/install-base-env.bash' && rm -rf /tmp/install-base-env.bash /tmp/env
+ ---> Running in b8104cf971c8
+[91m++ dirname /tmp/install-base-env.bash
+[0m[91m+ cd /tmp
++ export MAMBA_VERSION=1.5.9
++ MAMBA_VERSION=1.5.9
++ export CONDA_VERSION=24.5.0
++ CONDA_VERSION=24.5.0
+[0m[91m+ URL=https://anaconda.org/conda-forge/micromamba/1.5.9/download/linux-64/micromamba-1.5.9-0.tar.bz2
++ unset HOME
+[0m[91m+ mkdir -p /srv/conda
+[0m[91m+ export MICROMAMBA_EXE=/usr/local/bin/micromamba
++ MICROMAMBA_EXE=/usr/local/bin/micromamba
+[0m[91m+ wget -qO- https://anaconda.org/conda-forge/micromamba/1.5.9/download/linux-64/micromamba-1.5.9-0.tar.bz2
+[0m[91m+ tar -xvj bin/micromamba
+[0mbin/micromamba
+[91mtime: 1.656
++ mv bin/micromamba /usr/local/bin/micromamba
+[0m[91m+ chmod 0755 /usr/local/bin/micromamba
+[0m[91m++ /usr/local/bin/micromamba shell hook -p /srv/conda -s posix
+[0m[91m+ eval '
+# Copyright (C) 2012 Anaconda, Inc
+# SPDX-License-Identifier: BSD-3-Clause
+
+__mamba_exe() (
+    "/usr/local/bin/micromamba" "${@}"
+)
+
+__mamba_hashr() {
+    if [ -n "${ZSH_VERSION:+x}" ]; then
+        \rehash
+    elif [ -n "${POSH_VERSION:+x}" ]; then
+        :  # pass
+    else
+        \hash -r
+    fi
+}
+
+__mamba_xctivate() {
+    \local ask_conda
+    ask_conda="$(PS1="${PS1:-}" __mamba_exe shell "${@}" --shell bash)" || \return
+    \eval "${ask_conda}"
+    __mamba_hashr
+}
+
+micromamba() {
+    \local cmd="${1-__missing__}"
+    case "${cmd}" in
+        activate|reactivate|deactivate)
+            __mamba_xctivate "${@}"
+            ;;
+        install|update|upgrade|remove|uninstall)
+            __mamba_exe "${@}" || \return
+            __mamba_xctivate reactivate
+            ;;
+        self-update)
+            __mamba_exe "${@}" || \return
+
+            # remove leftover backup file on Windows
+            if [ -f "/usr/local/bin/micromamba.bkup" ]; then
+                rm -f "/usr/local/bin/micromamba.bkup"
+            fi
+            ;;
+        *)
+            __mamba_exe "${@}"
+            ;;
+    esac
+}
+
+if [ -z "${CONDA_SHLVL+x}" ]; then
+    \export CONDA_SHLVL=0
+    # In dev-mode MAMBA_EXE is python.exe and on Windows
+    # it is in a different relative location to condabin.
+    if [ -n "${_CE_CONDA+x}" ] && [ -n "${WINDIR+x}" ]; then
+        PATH="${MAMBA_ROOT_PREFIX}/condabin:${PATH}"
+    else
+        PATH="${MAMBA_ROOT_PREFIX}/condabin:${PATH}"
+    fi
+    \export PATH
+
+    # We'\''re not allowing PS1 to be unbound. It must at least be set.
+    # However, we'\''re not exporting it, which can cause problems when starting a second shell
+    # via a first shell (i.e. starting zsh from bash).
+    if [ -z "${PS1+x}" ]; then
+        PS1=
+    fi
+fi'
+[0m[91m++ '[' -z '' ']'
+++ export CONDA_SHLVL=0
+++ CONDA_SHLVL=0
+[0m[91m++ '[' -n '' ']'
+[0m[91m++ PATH=/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++ export PATH
+++ '[' -z '' ']'
+++ PS1=
+[0m[91m+ micromamba activate
++ local cmd=activate
++ case "${cmd}" in
++ __mamba_xctivate activate
++ local ask_conda
+[0m[91m++ PS1=
+++ __mamba_exe shell activate --shell bash
+[0m[91m++ /usr/local/bin/micromamba shell activate --shell bash
+[0m[91m+ ask_conda='PS1='\''(base) '\''
+export PATH='\''/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\''
+export CONDA_PREFIX='\''/srv/conda'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_DEFAULT_ENV='\''base'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\'''
++ eval 'PS1='\''(base) '\''
+export PATH='\''/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\''
+export CONDA_PREFIX='\''/srv/conda'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_DEFAULT_ENV='\''base'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\'''
+++ PS1='(base) '
+[0m[91m++ export PATH=/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++ PATH=/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++ export CONDA_PREFIX=/srv/conda
+++ CONDA_PREFIX=/srv/conda
+[0m[91m++ export CONDA_SHLVL=1
+++ CONDA_SHLVL=1
+++ export CONDA_DEFAULT_ENV=base
+++ CONDA_DEFAULT_ENV=base
+[0m[91m++ export 'CONDA_PROMPT_MODIFIER=(base) '
+++ CONDA_PROMPT_MODIFIER='(base) '
++ __mamba_hashr
+[0m[91m+ '[' -n '' ']'
++ '[' -n '' ']'
++ hash -r
+[0m[91m+ export PATH=/tmp/bin:/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ PATH=/tmp/bin:/srv/conda/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/conda/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++ cat
+[0m[91m+ micromamba install conda=24.5.0 mamba=1.5.9 -y
++ local cmd=install
++ case "${cmd}" in
++ __mamba_exe install conda=24.5.0 mamba=1.5.9 -y
+[0m[91m+ /usr/local/bin/micromamba install conda=24.5.0 mamba=1.5.9 -y
+[0m
+Transaction
+
+  Prefix: /srv/conda
+
+  Updating specs:
+
+   - conda=24.5.0
+   - mamba=1.5.9
+
+
+  Package                         Version  Build               Channel          Size
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  Install:
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  + _libgcc_mutex                     0.1  conda_forge         conda-forge       3kB
+  + python_abi                       3.12  5_cp312             conda-forge       6kB
+  + ld_impl_linux-64                 2.43  h712a8e2_2          conda-forge     669kB
+  + ca-certificates             2024.8.30  hbcca054_0          conda-forge     159kB
+  + libgomp                        14.2.0  h77fa898_1          conda-forge     461kB
+  + _openmp_mutex                     4.5  2_gnu               conda-forge      24kB
+  + libgcc                         14.2.0  h77fa898_1          conda-forge     849kB
+  + c-ares                         1.34.3  heb4867d_0          conda-forge     206kB
+  + libexpat                        2.6.4  h5888daf_0          conda-forge      73kB
+  + reproc                   14.2.5.post0  hb9d3cd8_0          conda-forge      34kB
+  + openssl                         3.4.0  hb9d3cd8_0          conda-forge       3MB
+  + libzlib                         1.3.1  hb9d3cd8_2          conda-forge      61kB
+  + libstdcxx                      14.2.0  hc0a3c3a_1          conda-forge       4MB
+  + libgcc-ng                      14.2.0  h69a702a_1          conda-forge      54kB
+  + libsqlite                      3.47.0  hadc24fc_1          conda-forge     875kB
+  + reproc-cpp               14.2.5.post0  h5888daf_0          conda-forge      26kB
+  + libstdcxx-ng                   14.2.0  h4852527_1          conda-forge      54kB
+  + libiconv                         1.17  hd590300_2          conda-forge     706kB
+  + libev                            4.33  hd590300_2          conda-forge     113kB
+  + tk                             8.6.13  noxft_h4845f30_101  conda-forge       3MB
+  + libxcrypt                      4.4.36  hd590300_1          conda-forge     100kB
+  + libffi                          3.4.2  h7f98852_5          conda-forge      58kB
+  + ncurses                           6.5  he02047a_1          conda-forge     889kB
+  + lzo                              2.10  hd590300_1001       conda-forge     171kB
+  + bzip2                           1.0.8  h4bc722e_7          conda-forge     253kB
+  + keyutils                        1.6.1  h166bdaf_0          conda-forge     118kB
+  + libssh2                        1.11.0  h0841786_0          conda-forge     271kB
+  + libuuid                        2.38.1  h0b41bf4_0          conda-forge      34kB
+  + libnsl                          2.0.1  hd590300_0          conda-forge      33kB
+  + xz                              5.2.6  h166bdaf_0          conda-forge     418kB
+  + lz4-c                           1.9.4  hcb278e6_0          conda-forge     143kB
+  + zstd                            1.5.6  ha6fb4c9_0          conda-forge     555kB
+  + libsolv                        0.7.30  h3509ff9_0          conda-forge     471kB
+  + yaml-cpp                        0.8.0  h59595ed_0          conda-forge     205kB
+  + fmt                            10.2.1  h00ab1b0_0          conda-forge     194kB
+  + libnghttp2                     1.64.0  h161d5f1_0          conda-forge     648kB
+  + libedit                  3.1.20191231  he28a2e2_2          conda-forge     124kB
+  + readline                          8.2  h8228510_1          conda-forge     281kB
+  + libxml2                        2.13.5  h064dc61_0          conda-forge     689kB
+  + krb5                           1.21.3  h659f571_0          conda-forge       1MB
+  + libarchive                      3.7.4  hfca40fe_0          conda-forge     872kB
+  + libcurl                        8.10.1  hbbe4b11_0          conda-forge     425kB
+  + libmamba                        1.5.9  h4cc3d14_0          conda-forge       2MB
+  + pybind11-abi                        4  hd8ed1ab_3          conda-forge      10kB
+  + tzdata                          2024b  hc8b5060_0          conda-forge     122kB
+  + python                         3.12.7  hc5c86c4_0_cpython  conda-forge      32MB
+  + wheel                          0.45.0  pyhd8ed1ab_0        conda-forge      63kB
+  + setuptools                     75.5.0  pyhff2d567_0        conda-forge     772kB
+  + pip                            24.3.1  pyh8b19718_0        conda-forge       1MB
+  + pycparser                        2.22  pyhd8ed1ab_0        conda-forge     105kB
+  + hyperframe                      6.0.1  pyhd8ed1ab_0        conda-forge      15kB
+  + hpack                           4.0.0  pyh9f0ad1d_0        conda-forge      25kB
+  + pysocks                         1.7.1  pyha2e5f31_6        conda-forge      19kB
+  + idna                             3.10  pyhd8ed1ab_0        conda-forge      50kB
+  + certifi                     2024.8.30  pyhd8ed1ab_0        conda-forge     164kB
+  + colorama                        0.4.6  pyhd8ed1ab_0        conda-forge      25kB
+  + truststore                     0.10.0  pyhd8ed1ab_0        conda-forge      22kB
+  + platformdirs                    4.3.6  pyhd8ed1ab_0        conda-forge      21kB
+  + packaging                        24.2  pyhff2d567_1        conda-forge      60kB
+  + boltons                        24.0.0  pyhd8ed1ab_0        conda-forge     298kB
+  + distro                          1.9.0  pyhd8ed1ab_0        conda-forge      42kB
+  + charset-normalizer              3.4.0  pyhd8ed1ab_0        conda-forge      47kB
+  + pluggy                          1.5.0  pyhd8ed1ab_0        conda-forge      24kB
+  + archspec                        0.2.3  pyhd8ed1ab_0        conda-forge      49kB
+  + h2                              4.1.0  pyhd8ed1ab_0        conda-forge      47kB
+  + tqdm                           4.67.0  pyhd8ed1ab_0        conda-forge      89kB
+  + brotli-python                   1.1.0  py312h2ec8cdc_2     conda-forge     350kB
+  + ruamel.yaml.clib                0.2.8  py312h66e93f0_1     conda-forge     145kB
+  + jsonpointer                     3.0.0  py312h7900ff3_1     conda-forge      17kB
+  + menuinst                        2.2.0  py312h7900ff3_0     conda-forge     166kB
+  + frozendict                      2.4.6  py312h66e93f0_0     conda-forge      30kB
+  + pycosat                         0.6.6  py312h98912ed_0     conda-forge      89kB
+  + libmambapy                      1.5.9  py312h7fb9e8e_0     conda-forge     320kB
+  + cffi                           1.17.1  py312h06ac9bb_0     conda-forge     294kB
+  + ruamel.yaml                    0.18.6  py312h66e93f0_1     conda-forge     267kB
+  + zstandard                      0.23.0  py312hef9b889_1     conda-forge     420kB
+  + jsonpatch                        1.33  pyhd8ed1ab_0        conda-forge      17kB
+  + conda-package-streaming        0.11.0  pyhd8ed1ab_0        conda-forge      21kB
+  + urllib3                         2.2.3  pyhd8ed1ab_0        conda-forge      98kB
+  + conda-package-handling          2.4.0  pyh7900ff3_0        conda-forge     258kB
+  + requests                       2.32.3  pyhd8ed1ab_0        conda-forge      59kB
+  + conda                          24.5.0  py312h7900ff3_0     conda-forge       1MB
+  + conda-libmamba-solver          24.9.0  pyhd8ed1ab_0        conda-forge      42kB
+  + mamba                           1.5.9  py312h9460a1c_0     conda-forge      64kB
+
+  Summary:
+
+  Install: 84 packages
+
+  Total download: 63MB
+
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+
+
+Transaction starting
+
+Transaction finished
+
+To activate this environment, use:
+
+    micromamba activate base
+
+Or to execute a single command in this environment, use:
+
+    micromamba run -n base mycommand
+
+[91m+ __mamba_xctivate reactivate
++ local ask_conda
+[0m[91m++ PS1='(base) '
+++ __mamba_exe shell reactivate --shell bash
+[0m[91m++ /usr/local/bin/micromamba shell reactivate --shell bash
+[0m[91m+ ask_conda='. "/srv/conda/etc/conda/deactivate.d/libxml2_deactivate.sh"
+PS1='\''(base) '\''
+export PATH='\''/srv/conda/bin:/tmp/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\''
+. "/srv/conda/etc/conda/activate.d/libxml2_activate.sh"'
++ eval '. "/srv/conda/etc/conda/deactivate.d/libxml2_deactivate.sh"
+PS1='\''(base) '\''
+export PATH='\''/srv/conda/bin:/tmp/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\''
+. "/srv/conda/etc/conda/activate.d/libxml2_activate.sh"'
+++ . /srv/conda/etc/conda/deactivate.d/libxml2_deactivate.sh
+[0m[91m+++ test -n ''
++++ unset XML_CATALOG_FILES
++++ unset xml_catalog_files_libxml2
+++ PS1='(base) '
+++ export PATH=/srv/conda/bin:/tmp/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++ PATH=/srv/conda/bin:/tmp/bin:/srv/conda/condabin:/srv/conda/envs/notebook/bin:/srv/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+[0m[91m++ export CONDA_SHLVL=1
+++ CONDA_SHLVL=1
+[0m[91m++ export 'CONDA_PROMPT_MODIFIER=(base) '
+++ CONDA_PROMPT_MODIFIER='(base) '
+[0m[91m++ . /srv/conda/etc/conda/activate.d/libxml2_activate.sh
+[0m[91m+++ test -n ''
++++ xml_catalog_files_libxml2=
++++ XML_CATALOG_FILES=
++++ conda_catalog_files=
++++ ifs_libxml2=' 	
+'
+[0m[91m+++ IFS=' '
++++ rem=/srv/conda
++++ for pre in ${rem}
++++ test '' = /srv/conda
++++ conda_catalog_files=/srv/conda
++++ rem=
++++ IFS=' 	
+'
+[0m[91m+++ conda_catalog_files='file:///srv/conda/etc/xml/catalog file:///etc/xml/catalog'
++++ export 'XML_CATALOG_FILES=file:///srv/conda/etc/xml/catalog file:///etc/xml/catalog'
++++ XML_CATALOG_FILES='file:///srv/conda/etc/xml/catalog file:///etc/xml/catalog'
++++ unset conda_catalog_files ifs_libxml2 rem
+[0m[91m+ __mamba_hashr
++ '[' -n '' ']'
+[0m[91m+ '[' -n '' ']'
++ hash -r
+[0m[91m+ echo 'installing notebook env:'
++ cat /tmp/env/environment.lock
+[0minstalling notebook env:
+# AUTO GENERATED FROM environment.py-3.11.yml, DO NOT MANUALLY MODIFY
+# Frozen on 2024-08-29 07:03:21 UTC
+# Generated by conda-lock.
+# platform: linux-64
+# input_hash: 5214f3fab8b6c89efc84e2138d15b78e5cad1444f8a79cea06169a23bd87ff15
+@EXPLICIT
+https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
+https://conda.anaconda.org/conda-forge/linux-64/ca-certificates-2024.7.4-hbcca054_0.conda#23ab7665c5f63cfb9f1f6195256daac6
+https://conda.anaconda.org/conda-forge/linux-64/ld_impl_linux-64-2.40-hf3520f5_7.conda#b80f2f396ca2c28b8c14c437a4ed1e74
+https://conda.anaconda.org/conda-forge/linux-64/python_abi-3.11-5_cp311.conda#139a8d40c8a2f430df31048949e450de
+https://conda.anaconda.org/conda-forge/noarch/tzdata-2024a-h8827d51_1.conda#8bfdead4e0fff0383ae4c9c50d0531bd
+https://conda.anaconda.org/conda-forge/linux-64/libgomp-14.1.0-h77fa898_1.conda#23c255b008c4f2ae008f81edcabaca89
+https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-2_gnu.tar.bz2#73aaf86a425cc6e73fcf236a5a46396d
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-14.1.0-h77fa898_1.conda#002ef4463dd1e2b44a94a4ace468f5d2
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-ng-14.1.0-h69a702a_1.conda#1efc0ad219877a73ef977af7dbb51f17
+https://conda.anaconda.org/conda-forge/linux-64/libstdcxx-14.1.0-hc0a3c3a_1.conda#9dbb9699ea467983ba8a4ba89b08b066
+https://conda.anaconda.org/conda-forge/linux-64/bzip2-1.0.8-h4bc722e_7.conda#62ee74e96c5ebb0af99386de58cf9553
+https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.1-h166bdaf_0.tar.bz2#30186d27e2c9fa62b45fb1476b7200e3
+https://conda.anaconda.org/conda-forge/linux-64/libexpat-2.6.2-h59595ed_0.conda#e7ba12deb7020dd080c6c70e7b6f6a3d
+https://conda.anaconda.org/conda-forge/linux-64/libffi-3.4.2-h7f98852_5.tar.bz2#d645c6d2ac96843a2bfaccd2d62b3ac3
+https://conda.anaconda.org/conda-forge/linux-64/libnsl-2.0.1-hd590300_0.conda#30fd6e37fe21f86f4bd26d6ee73eeec7
+https://conda.anaconda.org/conda-forge/linux-64/libsodium-1.0.18-h36c2ea0_1.tar.bz2#c3788462a6fbddafdb413a9f9053e58d
+https://conda.anaconda.org/conda-forge/linux-64/libstdcxx-ng-14.1.0-h4852527_1.conda#bd2598399a70bb86d8218e95548d735e
+https://conda.anaconda.org/conda-forge/linux-64/libuuid-2.38.1-h0b41bf4_0.conda#40b61aab5c7ba9ff276c41cfffe6b80b
+https://conda.anaconda.org/conda-forge/linux-64/libuv-1.48.0-hd590300_0.conda#7e8b914b1062dd4386e3de4d82a3ead6
+https://conda.anaconda.org/conda-forge/linux-64/libxcrypt-4.4.36-hd590300_1.conda#5aa797f8787fe7a17d1b0821485b5adc
+https://conda.anaconda.org/conda-forge/linux-64/libzlib-1.3.1-h4ab18f5_1.conda#57d7dc60e9325e3de37ff8dffd18e814
+https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-he02047a_1.conda#70caf8bb6cf39a0b6b7efc885f51c0fe
+https://conda.anaconda.org/conda-forge/linux-64/openssl-3.3.1-hb9d3cd8_3.conda#6c566a46baae794daf34775d41eb180a
+https://conda.anaconda.org/conda-forge/linux-64/xz-5.2.6-h166bdaf_0.tar.bz2#2161070d867d1b1204ea749c8eec4ef0
+https://conda.anaconda.org/conda-forge/linux-64/yaml-0.2.5-h7f98852_2.tar.bz2#4cb3ad778ec2d5a7acbdf254eb1c42ae
+https://conda.anaconda.org/conda-forge/linux-64/icu-75.1-he02047a_0.conda#8b189310083baabfb622af68fd9d3ae3
+https://conda.anaconda.org/conda-forge/linux-64/libedit-3.1.20191231-he28a2e2_2.tar.bz2#4d331e44109e3f0e19b4cb8f9b82f3e1
+https://conda.anaconda.org/conda-forge/linux-64/libsqlite-3.46.0-hde9e2c9_0.conda#18aa975d2094c34aef978060ae7da7d8
+https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8228510_1.conda#47d31b792659ce70f470b5c82fdfb7a4
+https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_h4845f30_101.conda#d453b98d9c83e71da0741bb0ff4d76bc
+https://conda.anaconda.org/conda-forge/linux-64/zlib-1.3.1-h4ab18f5_1.conda#9653f1bf3766164d0e65fa723cabbc54
+https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.6-ha6fb4c9_0.conda#4d056880988120e29d75bfff282e0f45
+https://conda.anaconda.org/conda-forge/linux-64/krb5-1.21.3-h659f571_0.conda#3f43953b7d3fb3aaa1d0d0723d91e368
+https://conda.anaconda.org/conda-forge/linux-64/nodejs-20.12.2-hc19f0b3_1.conda#0b86ff6ab7bdce5076269f2bbbf6857d
+https://conda.anaconda.org/conda-forge/linux-64/python-3.11.9-hb806964_0_cpython.conda#ac68acfa8b558ed406c75e98d3428d7b
+https://conda.anaconda.org/conda-forge/noarch/async_generator-1.10-pyhd8ed1ab_1.conda#bcee238f99c34ca11add65c1684c5a2d
+https://conda.anaconda.org/conda-forge/noarch/attrs-24.2.0-pyh71513ae_0.conda#6732fa52eb8e66e5afeb32db8701a791
+https://conda.anaconda.org/conda-forge/noarch/blinker-1.8.2-pyhd8ed1ab_0.conda#cf85c002319c15e9721934104aaa1137
+https://conda.anaconda.org/conda-forge/linux-64/brotli-python-1.1.0-py311hb755f60_1.conda#cce9e7c3f1c307f2a5fb08a2922d6164
+https://conda.anaconda.org/conda-forge/noarch/cached_property-1.5.2-pyha770c72_1.tar.bz2#576d629e47797577ab0f1b351297ef4a
+https://conda.anaconda.org/conda-forge/noarch/certifi-2024.7.4-pyhd8ed1ab_0.conda#24e7fd6ca65997938fff9e5ab6f653e4
+https://conda.anaconda.org/conda-forge/noarch/charset-normalizer-3.3.2-pyhd8ed1ab_0.conda#7f4a9e3fcff3f6356ae99244a014da6a
+https://conda.anaconda.org/conda-forge/linux-64/debugpy-1.8.5-py311hf86e51f_0.conda#748a22f229ec0e62963b8045b8e6786c
+https://conda.anaconda.org/conda-forge/noarch/decorator-5.1.1-pyhd8ed1ab_0.tar.bz2#43afe5ab04e35e17ba28649471dd7364
+https://conda.anaconda.org/conda-forge/noarch/defusedxml-0.7.1-pyhd8ed1ab_0.tar.bz2#961b3a227b437d82ad7054484cfa71b2
+https://conda.anaconda.org/conda-forge/noarch/entrypoints-0.4-pyhd8ed1ab_0.tar.bz2#3cf04868fee0a029769bd41f4b2fbf2d
+https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.2.2-pyhd8ed1ab_0.conda#d02ae936e42063ca46af6cdad2dbd1e0
+https://conda.anaconda.org/conda-forge/noarch/executing-2.0.1-pyhd8ed1ab_0.conda#e16be50e378d8a4533b989035b196ab8
+https://conda.anaconda.org/conda-forge/linux-64/greenlet-3.0.3-py311hb755f60_0.conda#6f4b03b4d1e0da0962ea02113382677c
+https://conda.anaconda.org/conda-forge/noarch/hpack-4.0.0-pyh9f0ad1d_0.tar.bz2#914d6646c4dbb1fd3ff539830a12fd71
+https://conda.anaconda.org/conda-forge/noarch/hyperframe-6.0.1-pyhd8ed1ab_0.tar.bz2#9f765cbfab6870c8435b9eefecd7a1f4
+https://conda.anaconda.org/conda-forge/noarch/idna-3.8-pyhd8ed1ab_0.conda#99e164522f6bdf23c177c8d9ae63f975
+https://conda.anaconda.org/conda-forge/noarch/json5-0.9.25-pyhd8ed1ab_0.conda#5d8c241a9261e720a34a07a3e1ac4109
+https://conda.anaconda.org/conda-forge/linux-64/jsonpointer-3.0.0-py311h38be061_0.conda#01a505ab9b4e3af12baa98b82f5fcafa
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab_widgets-3.0.13-pyhd8ed1ab_0.conda#ccea946e6dce9f330fbf7fca97fe8de7
+https://conda.anaconda.org/conda-forge/linux-64/markupsafe-2.1.5-py311h459d7ec_0.conda#a322b4185121935c871d201ae00ac143
+https://conda.anaconda.org/conda-forge/noarch/mistune-3.0.2-pyhd8ed1ab_0.conda#5cbee699846772cc939bef23a0d524ed
+https://conda.anaconda.org/conda-forge/noarch/nest-asyncio-1.6.0-pyhd8ed1ab_0.conda#6598c056f64dc8800d40add25e4e2c34
+https://conda.anaconda.org/conda-forge/noarch/packaging-24.1-pyhd8ed1ab_0.conda#cbe1bb1f21567018ce595d9c2be0f0db
+https://conda.anaconda.org/conda-forge/noarch/pamela-1.2.0-pyhff2d567_0.conda#adb3a4c7f269923b7f2ccff0ef071102
+https://conda.anaconda.org/conda-forge/noarch/pandocfilters-1.5.0-pyhd8ed1ab_0.tar.bz2#457c2c8c08e54905d6954e79cb5b5db9
+https://conda.anaconda.org/conda-forge/noarch/parso-0.8.4-pyhd8ed1ab_0.conda#81534b420deb77da8833f2289b8d47ac
+https://conda.anaconda.org/conda-forge/noarch/pickleshare-0.7.5-py_1003.tar.bz2#415f0ebb6198cc2801c73438a9fb5761
+https://conda.anaconda.org/conda-forge/noarch/pkgutil-resolve-name-1.3.10-pyhd8ed1ab_1.conda#405678b942f2481cecdb3e010f4925d9
+https://conda.anaconda.org/conda-forge/noarch/platformdirs-4.2.2-pyhd8ed1ab_0.conda#6f6cf28bf8e021933869bae3f84b8fc9
+https://conda.anaconda.org/conda-forge/noarch/prometheus_client-0.20.0-pyhd8ed1ab_0.conda#9a19b94034dd3abb2b348c8b93388035
+https://conda.anaconda.org/conda-forge/linux-64/psutil-5.9.8-py311h459d7ec_0.conda#9bc62d25dcf64eec484974a3123c9d57
+https://conda.anaconda.org/conda-forge/noarch/ptyprocess-0.7.0-pyhd3deb0d_0.tar.bz2#359eeb6536da0e687af562ed265ec263
+https://conda.anaconda.org/conda-forge/noarch/pure_eval-0.2.3-pyhd8ed1ab_0.conda#0f051f09d992e0d08941706ad519ee0e
+https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyhd8ed1ab_0.conda#844d9eb3b43095b031874477f7d70088
+https://conda.anaconda.org/conda-forge/noarch/pygments-2.18.0-pyhd8ed1ab_0.conda#b7f5c092b8f9800150d998a71b76d5a1
+https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.9.0-pyhd8ed1ab_1.conda#5ba575830ec18d5c51c59f403310e2c7
+https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha2e5f31_6.tar.bz2#2a7de29fb590ca14b5243c4c812c8025
+https://conda.anaconda.org/conda-forge/noarch/python-fastjsonschema-2.20.0-pyhd8ed1ab_0.conda#b98d2018c01ce9980c03ee2850690fab
+https://conda.anaconda.org/conda-forge/noarch/python-json-logger-2.0.7-pyhd8ed1ab_0.conda#a61bf9ec79426938ff785eb69dbb1960
+https://conda.anaconda.org/conda-forge/noarch/pytz-2024.1-pyhd8ed1ab_0.conda#3eeeeb9e4827ace8c0c1419c85d590ad
+https://conda.anaconda.org/conda-forge/linux-64/pyyaml-6.0.2-py311h61187de_0.conda#76439451605390254b85d8da6f8d962a
+https://conda.anaconda.org/conda-forge/noarch/rfc3986-validator-0.1.1-pyh9f0ad1d_0.tar.bz2#912a71cc01012ee38e6b90ddd561e36f
+https://conda.anaconda.org/conda-forge/linux-64/rpds-py-0.20.0-py311hb3a8bbb_0.conda#db475e65fb621c2ec1dcdcc4e170b6f1
+https://conda.anaconda.org/conda-forge/noarch/send2trash-1.8.3-pyh0d859eb_0.conda#778594b20097b5a948c59e50ae42482a
+https://conda.anaconda.org/conda-forge/noarch/setuptools-72.2.0-pyhd8ed1ab_0.conda#1462aa8b243aad09ef5d0841c745eb89
+https://conda.anaconda.org/conda-forge/noarch/six-1.16.0-pyh6c4a22f_0.tar.bz2#e5f25f8dbc060e9a8d912e432202afc2
+https://conda.anaconda.org/conda-forge/noarch/sniffio-1.3.1-pyhd8ed1ab_0.conda#490730480d76cf9c8f8f2849719c6e2b
+https://conda.anaconda.org/conda-forge/noarch/soupsieve-2.5-pyhd8ed1ab_1.conda#3f144b2c34f8cb5a9abd9ed23a39c561
+https://conda.anaconda.org/conda-forge/noarch/tomli-2.0.1-pyhd8ed1ab_0.tar.bz2#5844808ffab9ebdb694585b50ba02a96
+https://conda.anaconda.org/conda-forge/linux-64/tornado-6.4.1-py311h331c9d8_0.conda#e29e451c96bf8e81a5760b7565c6ed2c
+https://conda.anaconda.org/conda-forge/noarch/traitlets-5.14.3-pyhd8ed1ab_0.conda#3df84416a021220d8b5700c613af2dc5
+https://conda.anaconda.org/conda-forge/noarch/types-python-dateutil-2.9.0.20240821-pyhd8ed1ab_0.conda#a0637bb6a2428c10448807b9d87f082c
+https://conda.anaconda.org/conda-forge/noarch/typing_extensions-4.12.2-pyha770c72_0.conda#ebe6952715e1d5eb567eeebf25250fa7
+https://conda.anaconda.org/conda-forge/noarch/typing_utils-0.1.0-pyhd8ed1ab_0.tar.bz2#eb67e3cace64c66233e2d35949e20f92
+https://conda.anaconda.org/conda-forge/noarch/uri-template-1.3.0-pyhd8ed1ab_0.conda#0944dc65cb4a9b5b68522c3bb585d41c
+https://conda.anaconda.org/conda-forge/noarch/wcwidth-0.2.13-pyhd8ed1ab_0.conda#68f0738df502a14213624b288c60c9ad
+https://conda.anaconda.org/conda-forge/noarch/webcolors-24.8.0-pyhd8ed1ab_0.conda#eb48b812eb4fbb9ff238a6651fdbbcae
+https://conda.anaconda.org/conda-forge/noarch/webencodings-0.5.1-pyhd8ed1ab_2.conda#daf5160ff9cde3a468556965329085b9
+https://conda.anaconda.org/conda-forge/noarch/websocket-client-1.8.0-pyhd8ed1ab_0.conda#f372c576b8774922da83cda2b12f9d29
+https://conda.anaconda.org/conda-forge/noarch/wheel-0.44.0-pyhd8ed1ab_0.conda#d44e3b085abcaef02983c6305b84b584
+https://conda.anaconda.org/conda-forge/noarch/widgetsnbextension-4.0.13-pyhd8ed1ab_0.conda#6372cd99502721bd7499f8d16b56268d
+https://conda.anaconda.org/conda-forge/linux-64/zeromq-4.3.5-h75354e8_4.conda#03cc8d9838ad9dd0060ab532e81ccb21
+https://conda.anaconda.org/conda-forge/noarch/zipp-3.20.1-pyhd8ed1ab_0.conda#74a4befb4b38897e19a107693e49da20
+https://conda.anaconda.org/conda-forge/noarch/anyio-4.4.0-pyhd8ed1ab_0.conda#1fa97c6e8db1f82c64ff17a5efc4ae8e
+https://conda.anaconda.org/conda-forge/noarch/asttokens-2.4.1-pyhd8ed1ab_0.conda#5f25798dcefd8252ce5f9dc494d5f571
+https://conda.anaconda.org/conda-forge/noarch/async-lru-2.0.4-pyhd8ed1ab_0.conda#3d081de3a6ea9f894bbb585e8e3a4dcb
+https://conda.anaconda.org/conda-forge/noarch/babel-2.14.0-pyhd8ed1ab_0.conda#9669586875baeced8fc30c0826c3270e
+https://conda.anaconda.org/conda-forge/noarch/beautifulsoup4-4.12.3-pyha770c72_0.conda#332493000404d8411859539a5a630865
+https://conda.anaconda.org/conda-forge/noarch/bleach-6.1.0-pyhd8ed1ab_0.conda#0ed9d7c0e9afa7c025807a9a8136ea3e
+https://conda.anaconda.org/conda-forge/noarch/cached-property-1.5.2-hd8ed1ab_1.tar.bz2#9b347a7ec10940d3f7941ff6c460b551
+https://conda.anaconda.org/conda-forge/linux-64/cffi-1.17.0-py311ha8e6434_0.conda#32259cd17741b52be10cd23a26cca23a
+https://conda.anaconda.org/conda-forge/noarch/comm-0.2.2-pyhd8ed1ab_0.conda#948d84721b578d426294e17a02e24cbb
+https://conda.anaconda.org/conda-forge/noarch/h11-0.14.0-pyhd8ed1ab_0.tar.bz2#b21ed0883505ba1910994f1df031a428
+https://conda.anaconda.org/conda-forge/noarch/h2-4.1.0-pyhd8ed1ab_0.tar.bz2#b748fbf7060927a6e82df7cb5ee8f097
+https://conda.anaconda.org/conda-forge/noarch/importlib-metadata-8.4.0-pyha770c72_0.conda#6e3dbc422d3749ad72659243d6ac8b2b
+https://conda.anaconda.org/conda-forge/noarch/importlib_resources-6.4.4-pyhd8ed1ab_0.conda#99aa3edd3f452d61c305a30e78140513
+https://conda.anaconda.org/conda-forge/noarch/jedi-0.19.1-pyhd8ed1ab_0.conda#81a3be0b2023e1ea8555781f0ad904a2
+https://conda.anaconda.org/conda-forge/noarch/jinja2-3.1.4-pyhd8ed1ab_0.conda#7b86ecb7d3557821c649b3c31e3eb9f2
+https://conda.anaconda.org/conda-forge/linux-64/jupyter_core-5.7.2-py311h38be061_0.conda#f85e78497dfed6f6a4b865191f42de2e
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab_pygments-0.3.0-pyhd8ed1ab_1.conda#afcd1b53bcac8844540358e33f33d28f
+https://conda.anaconda.org/conda-forge/noarch/matplotlib-inline-0.1.7-pyhd8ed1ab_0.conda#779345c95648be40d22aaa89de7d4254
+https://conda.anaconda.org/conda-forge/noarch/overrides-7.7.0-pyhd8ed1ab_0.conda#24fba5a9d161ad8103d4e84c0e1a3ed4
+https://conda.anaconda.org/conda-forge/noarch/pexpect-4.9.0-pyhd8ed1ab_0.conda#629f3203c99b32e0988910c93e77f3b6
+https://conda.anaconda.org/conda-forge/noarch/pip-24.2-pyhd8ed1ab_0.conda#6721aef6bfe5937abe70181545dd2c51
+https://conda.anaconda.org/conda-forge/noarch/prompt-toolkit-3.0.47-pyha770c72_0.conda#1247c861065d227781231950e14fe817
+https://conda.anaconda.org/conda-forge/noarch/python-dateutil-2.9.0-pyhd8ed1ab_0.conda#2cf4264fffb9e6eff6031c5b6884d61c
+https://conda.anaconda.org/conda-forge/linux-64/pyzmq-26.2.0-py311h7deb3e3_0.conda#536c998639c24ff56b79e86f9e422272
+https://conda.anaconda.org/conda-forge/noarch/referencing-0.35.1-pyhd8ed1ab_0.conda#0fc8b52192a8898627c3efae1003e9f6
+https://conda.anaconda.org/conda-forge/noarch/rfc3339-validator-0.1.4-pyhd8ed1ab_0.tar.bz2#fed45fc5ea0813240707998abe49f520
+https://conda.anaconda.org/conda-forge/noarch/terminado-0.18.1-pyh0d859eb_0.conda#efba281bbdae5f6b0a1d53c6d4a97c93
+https://conda.anaconda.org/conda-forge/noarch/tinycss2-1.3.0-pyhd8ed1ab_0.conda#8662629d9a05f9cff364e31ca106c1ac
+https://conda.anaconda.org/conda-forge/noarch/typing-extensions-4.12.2-hd8ed1ab_0.conda#52d648bd608f5737b123f510bb5514b5
+https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_0.conda#7e9f4612544c8edbfd6afad17f1bd045
+https://conda.anaconda.org/conda-forge/linux-64/argon2-cffi-bindings-21.2.0-py311h459d7ec_4.conda#de5b16869a430949b02161b04b844a30
+https://conda.anaconda.org/conda-forge/noarch/arrow-1.3.0-pyhd8ed1ab_0.conda#b77d8c2313158e6e461ca0efb1c2c508
+https://conda.anaconda.org/conda-forge/linux-64/cryptography-43.0.0-py311hc6616f6_0.conda#f392b3f7a26db16f37cf82996dcfc84d
+https://conda.anaconda.org/conda-forge/noarch/fqdn-1.5.1-pyhd8ed1ab_0.tar.bz2#642d35437078749ef23a5dca2c9bb1f3
+https://conda.anaconda.org/conda-forge/noarch/httpcore-1.0.5-pyhd8ed1ab_0.conda#a6b9a0158301e697e4d0a36a3d60e133
+https://conda.anaconda.org/conda-forge/noarch/importlib_metadata-8.4.0-hd8ed1ab_0.conda#01b7411c765c3d863dcc920207f258bd
+https://conda.anaconda.org/conda-forge/noarch/jsonschema-specifications-2023.12.1-pyhd8ed1ab_0.conda#a0e4efb5f35786a05af4809a2fb1f855
+https://conda.anaconda.org/conda-forge/noarch/jupyter_server_terminals-0.5.3-pyhd8ed1ab_0.conda#219b3833aa8ed91d47d1be6ca03f30be
+https://conda.anaconda.org/conda-forge/noarch/mako-1.3.5-pyhd8ed1ab_0.conda#29fddbfa0e2361636a98de4f46ead2ac
+https://conda.anaconda.org/conda-forge/linux-64/pydantic-core-2.20.1-py311hb3a8bbb_0.conda#6cb8806e9e920bd9c32205128d848a00
+https://conda.anaconda.org/conda-forge/linux-64/sqlalchemy-2.0.32-py311h61187de_0.conda#2248e75f001930ba8389fe91c51be50b
+https://conda.anaconda.org/conda-forge/noarch/stack_data-0.6.2-pyhd8ed1ab_0.conda#e7df0fdd404616638df5ece6e69ba7af
+https://conda.anaconda.org/conda-forge/linux-64/zstandard-0.23.0-py311h5cd10c7_0.conda#8efe4fe2396281627b3450af8357b190
+https://conda.anaconda.org/conda-forge/noarch/alembic-1.13.2-pyhd8ed1ab_0.conda#0045ed5e28a7f2c252a30442408b36c4
+https://conda.anaconda.org/conda-forge/noarch/argon2-cffi-23.1.0-pyhd8ed1ab_0.conda#3afef1f55a1366b4d3b6a0d92e2235e4
+https://conda.anaconda.org/conda-forge/noarch/httpx-0.27.2-pyhd8ed1ab_0.conda#7e9ac3faeebdbd7b53b462c41891e7f7
+https://conda.anaconda.org/conda-forge/noarch/ipython-8.26.0-pyh707e725_0.conda#f64d3520d5d00321c10f4dabb5b903f3
+https://conda.anaconda.org/conda-forge/noarch/isoduration-20.11.0-pyhd8ed1ab_0.tar.bz2#4cb68948e0b8429534380243d063a27a
+https://conda.anaconda.org/conda-forge/noarch/jsonschema-4.23.0-pyhd8ed1ab_0.conda#da304c192ad59975202859b367d0f6a2
+https://conda.anaconda.org/conda-forge/noarch/jupyter_client-8.6.2-pyhd8ed1ab_0.conda#3cdbb2fa84490e5fd44c9f9806c0d292
+https://conda.anaconda.org/conda-forge/noarch/oauthlib-3.2.2-pyhd8ed1ab_0.tar.bz2#8f882b197fd9c4941a787926baea4868
+https://conda.anaconda.org/conda-forge/noarch/pydantic-2.8.2-pyhd8ed1ab_0.conda#539a038a24a959662df1fcaa2cfc5c3e
+https://conda.anaconda.org/conda-forge/noarch/pyopenssl-24.2.1-pyhd8ed1ab_2.conda#85fa2fdd26d5a38792eb57bc72463f07
+https://conda.anaconda.org/conda-forge/noarch/urllib3-2.2.2-pyhd8ed1ab_1.conda#e804c43f58255e977093a2298e442bb8
+https://conda.anaconda.org/conda-forge/noarch/certipy-0.1.3-pyhd8ed1ab_1.conda#ac4247381b9397ace149d73cd2141b0b
+https://conda.anaconda.org/conda-forge/noarch/ipykernel-6.29.5-pyh3099207_0.conda#b40131ab6a36ac2c09b7c57d4d3fbf99
+https://conda.anaconda.org/conda-forge/noarch/ipywidgets-8.1.5-pyhd8ed1ab_0.conda#a022d34163147d16b27de86dc53e93fc
+https://conda.anaconda.org/conda-forge/noarch/jsonschema-with-format-nongpl-4.23.0-hd8ed1ab_0.conda#16b37612b3a2fd77f409329e213b530c
+https://conda.anaconda.org/conda-forge/noarch/nbformat-5.10.4-pyhd8ed1ab_0.conda#0b57b5368ab7fc7cdc9e3511fa867214
+https://conda.anaconda.org/conda-forge/noarch/requests-2.32.3-pyhd8ed1ab_0.conda#5ede4753180c7a550a443c430dc8ab52
+https://conda.anaconda.org/conda-forge/noarch/jupyter_events-0.10.0-pyhd8ed1ab_0.conda#ed45423c41b3da15ea1df39b1f80c2ca
+https://conda.anaconda.org/conda-forge/noarch/nbclient-0.10.0-pyhd8ed1ab_0.conda#15b51397e0fe8ea7d7da60d83eb76ebc
+https://conda.anaconda.org/conda-forge/noarch/jupyterhub-base-5.1.0-pyh31011fe_0.conda#8958ebf09fe082db40ec9ab4d6f1a20c
+https://conda.anaconda.org/conda-forge/noarch/nbconvert-core-7.16.4-pyhd8ed1ab_1.conda#e2d2abb421c13456a9a9f80272fdf543
+https://conda.anaconda.org/conda-forge/noarch/jupyter_server-2.14.2-pyhd8ed1ab_0.conda#ca23c71f70a7c7935b3d03f0f1a5801d
+https://conda.anaconda.org/conda-forge/noarch/jupyter-lsp-2.2.5-pyhd8ed1ab_0.conda#885867f6adab3d7ecdf8ab6ca0785f51
+https://conda.anaconda.org/conda-forge/noarch/jupyter-offlinenotebook-0.3.1-pyhd8ed1ab_0.conda#e614f229e0c636b6c55a6f1222684d38
+https://conda.anaconda.org/conda-forge/noarch/jupyter-resource-usage-1.1.0-pyhd8ed1ab_0.conda#c64f9b9f15a79239b864c455cc0a67d4
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab_server-2.27.3-pyhd8ed1ab_0.conda#af8239bf1ba7e8c69b689f780f653488
+https://conda.anaconda.org/conda-forge/noarch/notebook-shim-0.2.4-pyhd8ed1ab_0.conda#3d85618e2c97ab896b5b5e298d32b5b3
+https://conda.anaconda.org/conda-forge/noarch/jupyterlab-4.2.5-pyhd8ed1ab_0.conda#594762eddc55b82feac6097165a88e3c
+https://conda.anaconda.org/conda-forge/noarch/jupyterhub-singleuser-5.1.0-pyh31011fe_0.conda#bb9841dbb34c753706c85cd4264ff710
+https://conda.anaconda.org/conda-forge/noarch/notebook-7.2.2-pyhd8ed1ab_0.conda#c4d5a58f43ce9ffa430e6ecad6c30a42
+[91m+ /srv/conda/bin/mamba create -p /srv/conda/envs/notebook --file /tmp/env/environment.lock
+[0m
+Downloading and Extracting Packages: ...working... done
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+[91mtime: 26.173
++ [[ ! -z '' ]]
++ echo ''
+[0m[91m+ [[ ! -z '' ]]
++ /srv/conda/bin/mamba clean --all -f -y
+[0mWill remove 1 package cache(s).
+[91mtime: 2.257
++ rm -rf /root/.cache
+[0m[91m+ chown -R jovyan:jovyan /srv/conda
+[0m[91m+ /srv/conda/bin/mamba list -p /srv/conda/envs/notebook
+[0m# packages in environment at /srv/conda/envs/notebook:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                 conda_forge    conda-forge
+_openmp_mutex             4.5                       2_gnu    conda-forge
+alembic                   1.13.2             pyhd8ed1ab_0    conda-forge
+annotated-types           0.7.0              pyhd8ed1ab_0    conda-forge
+anyio                     4.4.0              pyhd8ed1ab_0    conda-forge
+argon2-cffi               23.1.0             pyhd8ed1ab_0    conda-forge
+argon2-cffi-bindings      21.2.0          py311h459d7ec_4    conda-forge
+arrow                     1.3.0              pyhd8ed1ab_0    conda-forge
+asttokens                 2.4.1              pyhd8ed1ab_0    conda-forge
+async-lru                 2.0.4              pyhd8ed1ab_0    conda-forge
+async_generator           1.10               pyhd8ed1ab_1    conda-forge
+attrs                     24.2.0             pyh71513ae_0    conda-forge
+babel                     2.14.0             pyhd8ed1ab_0    conda-forge
+beautifulsoup4            4.12.3             pyha770c72_0    conda-forge
+bleach                    6.1.0              pyhd8ed1ab_0    conda-forge
+blinker                   1.8.2              pyhd8ed1ab_0    conda-forge
+brotli-python             1.1.0           py311hb755f60_1    conda-forge
+bzip2                     1.0.8                h4bc722e_7    conda-forge
+ca-certificates           2024.7.4             hbcca054_0    conda-forge
+cached-property           1.5.2                hd8ed1ab_1    conda-forge
+cached_property           1.5.2              pyha770c72_1    conda-forge
+certifi                   2024.7.4           pyhd8ed1ab_0    conda-forge
+certipy                   0.1.3              pyhd8ed1ab_1    conda-forge
+cffi                      1.17.0          py311ha8e6434_0    conda-forge
+charset-normalizer        3.3.2              pyhd8ed1ab_0    conda-forge
+comm                      0.2.2              pyhd8ed1ab_0    conda-forge
+cryptography              43.0.0          py311hc6616f6_0    conda-forge
+debugpy                   1.8.5           py311hf86e51f_0    conda-forge
+decorator                 5.1.1              pyhd8ed1ab_0    conda-forge
+defusedxml                0.7.1              pyhd8ed1ab_0    conda-forge
+entrypoints               0.4                pyhd8ed1ab_0    conda-forge
+exceptiongroup            1.2.2              pyhd8ed1ab_0    conda-forge
+executing                 2.0.1              pyhd8ed1ab_0    conda-forge
+fqdn                      1.5.1              pyhd8ed1ab_0    conda-forge
+greenlet                  3.0.3           py311hb755f60_0    conda-forge
+h11                       0.14.0             pyhd8ed1ab_0    conda-forge
+h2                        4.1.0              pyhd8ed1ab_0    conda-forge
+hpack                     4.0.0              pyh9f0ad1d_0    conda-forge
+httpcore                  1.0.5              pyhd8ed1ab_0    conda-forge
+httpx                     0.27.2             pyhd8ed1ab_0    conda-forge
+hyperframe                6.0.1              pyhd8ed1ab_0    conda-forge
+icu                       75.1                 he02047a_0    conda-forge
+idna                      3.8                pyhd8ed1ab_0    conda-forge
+importlib-metadata        8.4.0              pyha770c72_0    conda-forge
+importlib_metadata        8.4.0                hd8ed1ab_0    conda-forge
+importlib_resources       6.4.4              pyhd8ed1ab_0    conda-forge
+ipykernel                 6.29.5             pyh3099207_0    conda-forge
+ipython                   8.26.0             pyh707e725_0    conda-forge
+ipywidgets                8.1.5              pyhd8ed1ab_0    conda-forge
+isoduration               20.11.0            pyhd8ed1ab_0    conda-forge
+jedi                      0.19.1             pyhd8ed1ab_0    conda-forge
+jinja2                    3.1.4              pyhd8ed1ab_0    conda-forge
+json5                     0.9.25             pyhd8ed1ab_0    conda-forge
+jsonpointer               3.0.0           py311h38be061_0    conda-forge
+jsonschema                4.23.0             pyhd8ed1ab_0    conda-forge
+jsonschema-specifications 2023.12.1          pyhd8ed1ab_0    conda-forge
+jsonschema-with-format-nongpl 4.23.0               hd8ed1ab_0    conda-forge
+jupyter-lsp               2.2.5              pyhd8ed1ab_0    conda-forge
+jupyter-offlinenotebook   0.3.1              pyhd8ed1ab_0    conda-forge
+jupyter-resource-usage    1.1.0              pyhd8ed1ab_0    conda-forge
+jupyter_client            8.6.2              pyhd8ed1ab_0    conda-forge
+jupyter_core              5.7.2           py311h38be061_0    conda-forge
+jupyter_events            0.10.0             pyhd8ed1ab_0    conda-forge
+jupyter_server            2.14.2             pyhd8ed1ab_0    conda-forge
+jupyter_server_terminals  0.5.3              pyhd8ed1ab_0    conda-forge
+jupyterhub-base           5.1.0              pyh31011fe_0    conda-forge
+jupyterhub-singleuser     5.1.0              pyh31011fe_0    conda-forge
+jupyterlab                4.2.5              pyhd8ed1ab_0    conda-forge
+jupyterlab_pygments       0.3.0              pyhd8ed1ab_1    conda-forge
+jupyterlab_server         2.27.3             pyhd8ed1ab_0    conda-forge
+jupyterlab_widgets        3.0.13             pyhd8ed1ab_0    conda-forge
+keyutils                  1.6.1                h166bdaf_0    conda-forge
+krb5                      1.21.3               h659f571_0    conda-forge
+ld_impl_linux-64          2.40                 hf3520f5_7    conda-forge
+libedit                   3.1.20191231         he28a2e2_2    conda-forge
+libexpat                  2.6.2                h59595ed_0    conda-forge
+libffi                    3.4.2                h7f98852_5    conda-forge
+libgcc                    14.1.0               h77fa898_1    conda-forge
+libgcc-ng                 14.1.0               h69a702a_1    conda-forge
+libgomp                   14.1.0               h77fa898_1    conda-forge
+libnsl                    2.0.1                hd590300_0    conda-forge
+libsodium                 1.0.18               h36c2ea0_1    conda-forge
+libsqlite                 3.46.0               hde9e2c9_0    conda-forge
+libstdcxx                 14.1.0               hc0a3c3a_1    conda-forge
+libstdcxx-ng              14.1.0               h4852527_1    conda-forge
+libuuid                   2.38.1               h0b41bf4_0    conda-forge
+libuv                     1.48.0               hd590300_0    conda-forge
+libxcrypt                 4.4.36               hd590300_1    conda-forge
+libzlib                   1.3.1                h4ab18f5_1    conda-forge
+mako                      1.3.5              pyhd8ed1ab_0    conda-forge
+markupsafe                2.1.5           py311h459d7ec_0    conda-forge
+matplotlib-inline         0.1.7              pyhd8ed1ab_0    conda-forge
+mistune                   3.0.2              pyhd8ed1ab_0    conda-forge
+nbclient                  0.10.0             pyhd8ed1ab_0    conda-forge
+nbconvert-core            7.16.4             pyhd8ed1ab_1    conda-forge
+nbformat                  5.10.4             pyhd8ed1ab_0    conda-forge
+ncurses                   6.5                  he02047a_1    conda-forge
+nest-asyncio              1.6.0              pyhd8ed1ab_0    conda-forge
+nodejs                    20.12.2              hc19f0b3_1    conda-forge
+notebook                  7.2.2              pyhd8ed1ab_0    conda-forge
+notebook-shim             0.2.4              pyhd8ed1ab_0    conda-forge
+oauthlib                  3.2.2              pyhd8ed1ab_0    conda-forge
+openssl                   3.3.1                hb9d3cd8_3    conda-forge
+overrides                 7.7.0              pyhd8ed1ab_0    conda-forge
+packaging                 24.1               pyhd8ed1ab_0    conda-forge
+pamela                    1.2.0              pyhff2d567_0    conda-forge
+pandocfilters             1.5.0              pyhd8ed1ab_0    conda-forge
+parso                     0.8.4              pyhd8ed1ab_0    conda-forge
+pexpect                   4.9.0              pyhd8ed1ab_0    conda-forge
+pickleshare               0.7.5                   py_1003    conda-forge
+pip                       24.2               pyhd8ed1ab_0    conda-forge
+pkgutil-resolve-name      1.3.10             pyhd8ed1ab_1    conda-forge
+platformdirs              4.2.2              pyhd8ed1ab_0    conda-forge
+prometheus_client         0.20.0             pyhd8ed1ab_0    conda-forge
+prompt-toolkit            3.0.47             pyha770c72_0    conda-forge
+psutil                    5.9.8           py311h459d7ec_0    conda-forge
+ptyprocess                0.7.0              pyhd3deb0d_0    conda-forge
+pure_eval                 0.2.3              pyhd8ed1ab_0    conda-forge
+pycparser                 2.22               pyhd8ed1ab_0    conda-forge
+pydantic                  2.8.2              pyhd8ed1ab_0    conda-forge
+pydantic-core             2.20.1          py311hb3a8bbb_0    conda-forge
+pygments                  2.18.0             pyhd8ed1ab_0    conda-forge
+pyjwt                     2.9.0              pyhd8ed1ab_1    conda-forge
+pyopenssl                 24.2.1             pyhd8ed1ab_2    conda-forge
+pysocks                   1.7.1              pyha2e5f31_6    conda-forge
+python                    3.11.9          hb806964_0_cpython    conda-forge
+python-dateutil           2.9.0              pyhd8ed1ab_0    conda-forge
+python-fastjsonschema     2.20.0             pyhd8ed1ab_0    conda-forge
+python-json-logger        2.0.7              pyhd8ed1ab_0    conda-forge
+python_abi                3.11                    5_cp311    conda-forge
+pytz                      2024.1             pyhd8ed1ab_0    conda-forge
+pyyaml                    6.0.2           py311h61187de_0    conda-forge
+pyzmq                     26.2.0          py311h7deb3e3_0    conda-forge
+readline                  8.2                  h8228510_1    conda-forge
+referencing               0.35.1             pyhd8ed1ab_0    conda-forge
+requests                  2.32.3             pyhd8ed1ab_0    conda-forge
+rfc3339-validator         0.1.4              pyhd8ed1ab_0    conda-forge
+rfc3986-validator         0.1.1              pyh9f0ad1d_0    conda-forge
+rpds-py                   0.20.0          py311hb3a8bbb_0    conda-forge
+send2trash                1.8.3              pyh0d859eb_0    conda-forge
+setuptools                72.2.0             pyhd8ed1ab_0    conda-forge
+six                       1.16.0             pyh6c4a22f_0    conda-forge
+sniffio                   1.3.1              pyhd8ed1ab_0    conda-forge
+soupsieve                 2.5                pyhd8ed1ab_1    conda-forge
+sqlalchemy                2.0.32          py311h61187de_0    conda-forge
+stack_data                0.6.2              pyhd8ed1ab_0    conda-forge
+terminado                 0.18.1             pyh0d859eb_0    conda-forge
+tinycss2                  1.3.0              pyhd8ed1ab_0    conda-forge
+tk                        8.6.13          noxft_h4845f30_101    conda-forge
+tomli                     2.0.1              pyhd8ed1ab_0    conda-forge
+tornado                   6.4.1           py311h331c9d8_0    conda-forge
+traitlets                 5.14.3             pyhd8ed1ab_0    conda-forge
+types-python-dateutil     2.9.0.20240821     pyhd8ed1ab_0    conda-forge
+typing-extensions         4.12.2               hd8ed1ab_0    conda-forge
+typing_extensions         4.12.2             pyha770c72_0    conda-forge
+typing_utils              0.1.0              pyhd8ed1ab_0    conda-forge
+tzdata                    2024a                h8827d51_1    conda-forge
+uri-template              1.3.0              pyhd8ed1ab_0    conda-forge
+urllib3                   2.2.2              pyhd8ed1ab_1    conda-forge
+wcwidth                   0.2.13             pyhd8ed1ab_0    conda-forge
+webcolors                 24.8.0             pyhd8ed1ab_0    conda-forge
+webencodings              0.5.1              pyhd8ed1ab_2    conda-forge
+websocket-client          1.8.0              pyhd8ed1ab_0    conda-forge
+wheel                     0.44.0             pyhd8ed1ab_0    conda-forge
+widgetsnbextension        4.0.13             pyhd8ed1ab_0    conda-forge
+xz                        5.2.6                h166bdaf_0    conda-forge
+yaml                      0.2.5                h7f98852_2    conda-forge
+zeromq                    4.3.5                h75354e8_4    conda-forge
+zipp                      3.20.1             pyhd8ed1ab_0    conda-forge
+zlib                      1.3.1                h4ab18f5_1    conda-forge
+zstandard                 0.23.0          py311h5cd10c7_0    conda-forge
+zstd                      1.5.6                ha6fb4c9_0    conda-forge
+[91m+ /srv/conda/envs/notebook/bin/npm config --global set prefix /srv/npm
+[0m[91mtime: 59.094
+[0m ---> Removed intermediate container b8104cf971c8
+ ---> c942405583a2
+Step 28/54 : RUN mkdir -p ${NPM_DIR} && chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
+ ---> Running in 3a325fd80a6f
+ ---> Removed intermediate container 3a325fd80a6f
+ ---> 326ddabf4b23
+Step 29/54 : USER root
+ ---> Running in b387ae0f762b
+ ---> Removed intermediate container b387ae0f762b
+ ---> 3fd049c14e7a
+Step 30/54 : ARG REPO_DIR=${HOME}
+ ---> Running in 2a90721d8765
+ ---> Removed intermediate container 2a90721d8765
+ ---> dd9efe68cdd7
+Step 31/54 : ENV REPO_DIR=${REPO_DIR}
+ ---> Running in c5443a26e53b
+ ---> Removed intermediate container c5443a26e53b
+ ---> 762273d1d2b9
+Step 32/54 : RUN if [ ! -d "${REPO_DIR}" ]; then         /usr/bin/install -o ${NB_USER} -g ${NB_USER} -d "${REPO_DIR}";     fi
+ ---> Running in d600b24d984e
+ ---> Removed intermediate container d600b24d984e
+ ---> 0f936a514ed9
+Step 33/54 : WORKDIR ${REPO_DIR}
+ ---> Running in 48d159ea305b
+ ---> Removed intermediate container 48d159ea305b
+ ---> 46bcaff404b4
+Step 34/54 : RUN chown ${NB_USER}:${NB_USER} ${REPO_DIR}
+ ---> Running in a5ee98f1d883
+ ---> Removed intermediate container a5ee98f1d883
+ ---> d5301962c50e
+Step 35/54 : ENV PATH=${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
+ ---> Running in 207fd272f7b9
+ ---> Removed intermediate container 207fd272f7b9
+ ---> 342891541011
+Step 36/54 : ENV CONDA_DEFAULT_ENV=${KERNEL_PYTHON_PREFIX}
+ ---> Running in 8e83f66146e8
+ ---> Removed intermediate container 8e83f66146e8
+ ---> 82179e8feba2
+Step 37/54 : COPY --chown=1000:1000 src/binder/requirements.txt ${REPO_DIR}/binder/requirements.txt
+ ---> 4244ea10b516
+Step 38/54 : USER ${NB_USER}
+ ---> Running in 5cea84c21df8
+ ---> Removed intermediate container 5cea84c21df8
+ ---> fef8f611a59e
+Step 39/54 : RUN ${KERNEL_PYTHON_PREFIX}/bin/pip install --no-cache-dir -r "binder/requirements.txt"
+ ---> Running in 03530ba6c235
+Collecting jupyter_ai==2.15.0 (from -r binder/requirements.txt (line 1))
+  Downloading jupyter_ai-2.15.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting jupyter_ai_magics==2.20.0 (from -r binder/requirements.txt (line 2))
+  Downloading jupyter_ai_magics-2.20.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting langchain-openai==0.1.20 (from -r binder/requirements.txt (line 3))
+  Downloading langchain_openai-0.1.20-py3-none-any.whl.metadata (2.6 kB)
+Collecting openai==1.39.0 (from -r binder/requirements.txt (line 4))
+  Downloading openai-1.39.0-py3-none-any.whl.metadata (22 kB)
+Collecting aiosqlite>=0.18 (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading aiosqlite-0.20.0-py3-none-any.whl.metadata (4.3 kB)
+Collecting dask[distributed] (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading dask-2024.11.2-py3-none-any.whl.metadata (3.7 kB)
+Collecting deepmerge>=1.0 (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading deepmerge-2.0-py3-none-any.whl.metadata (3.5 kB)
+Collecting faiss-cpu (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading faiss_cpu-1.9.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.4 kB)
+Requirement already satisfied: importlib-metadata>=5.2.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (8.4.0)
+Requirement already satisfied: jupyter-server<3,>=1.6 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.14.2)
+Requirement already satisfied: jupyterlab~=4.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (4.2.5)
+Requirement already satisfied: traitlets>=5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (5.14.3)
+Requirement already satisfied: typing-extensions>=4.5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (4.12.2)
+Collecting click~=8.0 (from jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading click-8.1.7-py3-none-any.whl.metadata (3.0 kB)
+Requirement already satisfied: ipython in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (8.26.0)
+Collecting jsonpath-ng<2,>=1.5.3 (from jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading jsonpath-ng-1.7.0.tar.gz (37 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting langchain-community<0.3.0,>=0.1.0 (from jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading langchain_community-0.2.19-py3-none-any.whl.metadata (2.7 kB)
+Collecting langchain<0.3.0,>=0.1.0 (from jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading langchain-0.2.17-py3-none-any.whl.metadata (7.1 kB)
+Collecting langchain-core<0.3.0,>=0.2.26 (from langchain-openai==0.1.20->-r binder/requirements.txt (line 3))
+  Downloading langchain_core-0.2.43-py3-none-any.whl.metadata (6.2 kB)
+Collecting tiktoken<1,>=0.7 (from langchain-openai==0.1.20->-r binder/requirements.txt (line 3))
+  Downloading tiktoken-0.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+Requirement already satisfied: anyio<5,>=3.5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from openai==1.39.0->-r binder/requirements.txt (line 4)) (4.4.0)
+Collecting distro<2,>=1.7.0 (from openai==1.39.0->-r binder/requirements.txt (line 4))
+  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: httpx<1,>=0.23.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from openai==1.39.0->-r binder/requirements.txt (line 4)) (0.27.2)
+Requirement already satisfied: pydantic<3,>=1.9.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from openai==1.39.0->-r binder/requirements.txt (line 4)) (2.8.2)
+Requirement already satisfied: sniffio in /srv/conda/envs/notebook/lib/python3.11/site-packages (from openai==1.39.0->-r binder/requirements.txt (line 4)) (1.3.1)
+Collecting tqdm>4 (from openai==1.39.0->-r binder/requirements.txt (line 4))
+  Downloading tqdm-4.67.0-py3-none-any.whl.metadata (57 kB)
+Requirement already satisfied: idna>=2.8 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from anyio<5,>=3.5.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (3.8)
+Requirement already satisfied: certifi in /srv/conda/envs/notebook/lib/python3.11/site-packages (from httpx<1,>=0.23.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (2024.7.4)
+Requirement already satisfied: httpcore==1.* in /srv/conda/envs/notebook/lib/python3.11/site-packages (from httpx<1,>=0.23.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (1.0.5)
+Requirement already satisfied: h11<0.15,>=0.13 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (0.14.0)
+Requirement already satisfied: zipp>=0.5 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from importlib-metadata>=5.2.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (3.20.1)
+Collecting ply (from jsonpath-ng<2,>=1.5.3->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading ply-3.11-py2.py3-none-any.whl.metadata (844 bytes)
+Requirement already satisfied: argon2-cffi>=21.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (23.1.0)
+Requirement already satisfied: jinja2>=3.0.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (3.1.4)
+Requirement already satisfied: jupyter-client>=7.4.4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (8.6.2)
+Requirement already satisfied: jupyter-core!=5.0.*,>=4.12 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (5.7.2)
+Requirement already satisfied: jupyter-events>=0.9.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.10.0)
+Requirement already satisfied: jupyter-server-terminals>=0.4.4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.5.3)
+Requirement already satisfied: nbconvert>=6.4.4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (7.16.4)
+Requirement already satisfied: nbformat>=5.3.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (5.10.4)
+Requirement already satisfied: overrides>=5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (7.7.0)
+Requirement already satisfied: packaging>=22.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (24.1)
+Requirement already satisfied: prometheus-client>=0.9 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: pyzmq>=24 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (26.2.0)
+Requirement already satisfied: send2trash>=1.8.2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.8.3)
+Requirement already satisfied: terminado>=0.8.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.18.1)
+Requirement already satisfied: tornado>=6.2.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (6.4.1)
+Requirement already satisfied: websocket-client>=1.7 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.8.0)
+Requirement already satisfied: async-lru>=1.0.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.0.4)
+Requirement already satisfied: ipykernel>=6.5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (6.29.5)
+Requirement already satisfied: jupyter-lsp>=2.0.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.2.5)
+Requirement already satisfied: jupyterlab-server<3,>=2.27.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.27.3)
+Requirement already satisfied: notebook-shim>=0.2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.2.4)
+Requirement already satisfied: setuptools>=40.1.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (72.2.0)
+Requirement already satisfied: PyYAML>=5.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (6.0.2)
+Requirement already satisfied: SQLAlchemy<3,>=1.4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (2.0.32)
+Collecting aiohttp<4.0.0,>=3.8.3 (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading aiohttp-3.11.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.7 kB)
+Collecting langchain-text-splitters<0.3.0,>=0.2.0 (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading langchain_text_splitters-0.2.4-py3-none-any.whl.metadata (2.3 kB)
+Collecting langsmith<0.2.0,>=0.1.17 (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading langsmith-0.1.143-py3-none-any.whl.metadata (13 kB)
+Collecting numpy<2,>=1 (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Requirement already satisfied: requests<3,>=2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (2.32.3)
+Collecting tenacity!=8.4.0,<9.0.0,>=8.1.0 (from langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading tenacity-8.5.0-py3-none-any.whl.metadata (1.2 kB)
+Collecting dataclasses-json<0.7,>=0.5.7 (from langchain-community<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+Collecting jsonpatch<2.0,>=1.33 (from langchain-core<0.3.0,>=0.2.26->langchain-openai==0.1.20->-r binder/requirements.txt (line 3))
+  Downloading jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+Requirement already satisfied: annotated-types>=0.4.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from pydantic<3,>=1.9.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (0.7.0)
+Requirement already satisfied: pydantic-core==2.20.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from pydantic<3,>=1.9.0->openai==1.39.0->-r binder/requirements.txt (line 4)) (2.20.1)
+Collecting regex>=2022.1.18 (from tiktoken<1,>=0.7->langchain-openai==0.1.20->-r binder/requirements.txt (line 3))
+  Downloading regex-2024.11.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (40 kB)
+Collecting cloudpickle>=3.0.0 (from dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading cloudpickle-3.1.0-py3-none-any.whl.metadata (7.0 kB)
+Collecting fsspec>=2021.09.0 (from dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading fsspec-2024.10.0-py3-none-any.whl.metadata (11 kB)
+Collecting partd>=1.4.0 (from dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading partd-1.4.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting toolz>=0.10.0 (from dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading toolz-1.0.0-py3-none-any.whl.metadata (5.1 kB)
+Collecting distributed==2024.11.2 (from dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading distributed-2024.11.2-py3-none-any.whl.metadata (3.3 kB)
+Collecting locket>=1.0.0 (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading locket-1.0.0-py2.py3-none-any.whl.metadata (2.8 kB)
+Collecting msgpack>=1.0.2 (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading msgpack-1.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (8.4 kB)
+Requirement already satisfied: psutil>=5.8.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (5.9.8)
+Collecting sortedcontainers>=2.0.5 (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Collecting tblib>=1.6.0 (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading tblib-3.0.0-py3-none-any.whl.metadata (25 kB)
+Requirement already satisfied: urllib3>=1.26.5 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.2.2)
+Collecting zict>=3.0.0 (from distributed==2024.11.2->dask[distributed]->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1))
+  Downloading zict-3.0.0-py2.py3-none-any.whl.metadata (899 bytes)
+Requirement already satisfied: decorator in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (5.1.1)
+Requirement already satisfied: jedi>=0.16 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.19.1)
+Requirement already satisfied: matplotlib-inline in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.1.7)
+Requirement already satisfied: prompt-toolkit<3.1.0,>=3.0.41 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (3.0.47)
+Requirement already satisfied: pygments>=2.4.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (2.18.0)
+Requirement already satisfied: stack-data in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.6.2)
+Requirement already satisfied: pexpect>4.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (4.9.0)
+Collecting aiohappyeyeballs>=2.3.0 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading aiohappyeyeballs-2.4.3-py3-none-any.whl.metadata (6.1 kB)
+Collecting aiosignal>=1.1.2 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading aiosignal-1.3.1-py3-none-any.whl.metadata (4.0 kB)
+Requirement already satisfied: attrs>=17.3.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (24.2.0)
+Collecting frozenlist>=1.1.1 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading frozenlist-1.5.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading multidict-6.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.0 kB)
+Collecting propcache>=0.2.0 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading propcache-0.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.7 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp<4.0.0,>=3.8.3->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading yarl-1.17.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (66 kB)
+Requirement already satisfied: argon2-cffi-bindings in /srv/conda/envs/notebook/lib/python3.11/site-packages (from argon2-cffi>=21.1->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (21.2.0)
+Collecting marshmallow<4.0.0,>=3.18.0 (from dataclasses-json<0.7,>=0.5.7->langchain-community<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading marshmallow-3.23.1-py3-none-any.whl.metadata (7.5 kB)
+Collecting typing-inspect<1,>=0.4.0 (from dataclasses-json<0.7,>=0.5.7->langchain-community<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+Requirement already satisfied: comm>=0.1.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipykernel>=6.5.0->jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.2.2)
+Requirement already satisfied: debugpy>=1.6.5 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipykernel>=6.5.0->jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.8.5)
+Requirement already satisfied: nest-asyncio in /srv/conda/envs/notebook/lib/python3.11/site-packages (from ipykernel>=6.5.0->jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.6.0)
+Requirement already satisfied: parso<0.9.0,>=0.8.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jedi>=0.16->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.8.4)
+Requirement already satisfied: MarkupSafe>=2.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jinja2>=3.0.3->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.1.5)
+Requirement already satisfied: jsonpointer>=1.9 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonpatch<2.0,>=1.33->langchain-core<0.3.0,>=0.2.26->langchain-openai==0.1.20->-r binder/requirements.txt (line 3)) (3.0.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-client>=7.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.9.0)
+Requirement already satisfied: platformdirs>=2.5 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-core!=5.0.*,>=4.12->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (4.2.2)
+Requirement already satisfied: jsonschema>=4.18.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (4.23.0)
+Requirement already satisfied: python-json-logger>=2.0.4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.0.7)
+Requirement already satisfied: referencing in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.35.1)
+Requirement already satisfied: rfc3339-validator in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.1.4)
+Requirement already satisfied: rfc3986-validator>=0.1.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.1.1)
+Requirement already satisfied: babel>=2.10 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab-server<3,>=2.27.1->jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.14.0)
+Requirement already satisfied: json5>=0.9.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jupyterlab-server<3,>=2.27.1->jupyterlab~=4.0->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.9.25)
+Collecting orjson<4.0.0,>=3.9.14 (from langsmith<0.2.0,>=0.1.17->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading orjson-3.10.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (50 kB)
+Collecting requests-toolbelt<2.0.0,>=1.0.0 (from langsmith<0.2.0,>=0.1.17->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+Requirement already satisfied: beautifulsoup4 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (4.12.3)
+Requirement already satisfied: bleach!=5.0.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (6.1.0)
+Requirement already satisfied: defusedxml in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.7.1)
+Requirement already satisfied: jupyterlab-pygments in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.3.0)
+Requirement already satisfied: mistune<4,>=2.0.3 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (3.0.2)
+Requirement already satisfied: nbclient>=0.5.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.10.0)
+Requirement already satisfied: pandocfilters>=1.4.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.5.0)
+Requirement already satisfied: tinycss2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.3.0)
+Requirement already satisfied: fastjsonschema>=2.15 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from nbformat>=5.3.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.20.0)
+Requirement already satisfied: ptyprocess>=0.5 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from pexpect>4.3->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.7.0)
+Requirement already satisfied: wcwidth in /srv/conda/envs/notebook/lib/python3.11/site-packages (from prompt-toolkit<3.1.0,>=3.0.41->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.2.13)
+Requirement already satisfied: charset-normalizer<4,>=2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from requests<3,>=2->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (3.3.2)
+Requirement already satisfied: greenlet!=0.4.17 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from SQLAlchemy<3,>=1.4->langchain<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (3.0.3)
+Requirement already satisfied: executing>=1.2.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from stack-data->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (2.0.1)
+Requirement already satisfied: asttokens>=2.1.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from stack-data->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (2.4.1)
+Requirement already satisfied: pure-eval in /srv/conda/envs/notebook/lib/python3.11/site-packages (from stack-data->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (0.2.3)
+Requirement already satisfied: six>=1.12.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from asttokens>=2.1.0->stack-data->ipython->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2)) (1.16.0)
+Requirement already satisfied: webencodings in /srv/conda/envs/notebook/lib/python3.11/site-packages (from bleach!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.5.1)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema>=4.18.0->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2023.12.1)
+Requirement already satisfied: rpds-py>=0.7.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema>=4.18.0->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: fqdn in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.5.1)
+Requirement already satisfied: isoduration in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (20.11.0)
+Requirement already satisfied: uri-template in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.3.0)
+Requirement already satisfied: webcolors>=24.6.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (24.8.0)
+Collecting mypy-extensions>=0.3.0 (from typing-inspect<1,>=0.4.0->dataclasses-json<0.7,>=0.5.7->langchain-community<0.3.0,>=0.1.0->jupyter_ai_magics==2.20.0->-r binder/requirements.txt (line 2))
+  Downloading mypy_extensions-1.0.0-py3-none-any.whl.metadata (1.1 kB)
+Requirement already satisfied: cffi>=1.0.1 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.17.0)
+Requirement already satisfied: soupsieve>1.2 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from beautifulsoup4->nbconvert>=6.4.4->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.5)
+Requirement already satisfied: pycparser in /srv/conda/envs/notebook/lib/python3.11/site-packages (from cffi>=1.0.1->argon2-cffi-bindings->argon2-cffi>=21.1->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.22)
+Requirement already satisfied: arrow>=0.15.0 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (1.3.0)
+Requirement already satisfied: types-python-dateutil>=2.8.10 in /srv/conda/envs/notebook/lib/python3.11/site-packages (from arrow>=0.15.0->isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.9.0->jupyter-server<3,>=1.6->jupyter_ai==2.15.0->-r binder/requirements.txt (line 1)) (2.9.0.20240821)
+Downloading jupyter_ai-2.15.0-py3-none-any.whl (932 kB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 932.5/932.5 kB 60.2 MB/s eta 0:00:00
+Downloading jupyter_ai_magics-2.20.0-py3-none-any.whl (35 kB)
+Downloading langchain_openai-0.1.20-py3-none-any.whl (48 kB)
+Downloading openai-1.39.0-py3-none-any.whl (336 kB)
+Downloading aiosqlite-0.20.0-py3-none-any.whl (15 kB)
+Downloading click-8.1.7-py3-none-any.whl (97 kB)
+Downloading deepmerge-2.0-py3-none-any.whl (13 kB)
+Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Downloading langchain-0.2.17-py3-none-any.whl (1.0 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 1.0/1.0 MB 417.7 MB/s eta 0:00:00
+Downloading langchain_community-0.2.19-py3-none-any.whl (2.3 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 2.3/2.3 MB 241.4 MB/s eta 0:00:00
+Downloading langchain_core-0.2.43-py3-none-any.whl (397 kB)
+Downloading tiktoken-0.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.2 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 1.2/1.2 MB 600.6 MB/s eta 0:00:00
+Downloading tqdm-4.67.0-py3-none-any.whl (78 kB)
+Downloading distributed-2024.11.2-py3-none-any.whl (1.0 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 1.0/1.0 MB 631.4 MB/s eta 0:00:00
+Downloading dask-2024.11.2-py3-none-any.whl (1.3 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 1.3/1.3 MB 610.5 MB/s eta 0:00:00
+Downloading faiss_cpu-1.9.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (27.5 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 27.5/27.5 MB 359.4 MB/s eta 0:00:00
+Downloading aiohttp-3.11.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.7 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 1.7/1.7 MB 632.8 MB/s eta 0:00:00
+Downloading cloudpickle-3.1.0-py3-none-any.whl (22 kB)
+Downloading dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+Downloading fsspec-2024.10.0-py3-none-any.whl (179 kB)
+Downloading jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+Downloading langchain_text_splitters-0.2.4-py3-none-any.whl (25 kB)
+Downloading langsmith-0.1.143-py3-none-any.whl (306 kB)
+Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 18.3/18.3 MB 304.1 MB/s eta 0:00:00
+Downloading partd-1.4.2-py3-none-any.whl (18 kB)
+Downloading regex-2024.11.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (792 kB)
+   â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â” 792.7/792.7 kB 594.4 MB/s eta 0:00:00
+Downloading tenacity-8.5.0-py3-none-any.whl (28 kB)
+Downloading toolz-1.0.0-py3-none-any.whl (56 kB)
+Downloading ply-3.11-py2.py3-none-any.whl (49 kB)
+Downloading aiohappyeyeballs-2.4.3-py3-none-any.whl (14 kB)
+Downloading aiosignal-1.3.1-py3-none-any.whl (7.6 kB)
+Downloading frozenlist-1.5.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (274 kB)
+Downloading locket-1.0.0-py2.py3-none-any.whl (4.4 kB)
+Downloading marshmallow-3.23.1-py3-none-any.whl (49 kB)
+Downloading msgpack-1.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (403 kB)
+Downloading multidict-6.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (129 kB)
+Downloading orjson-3.10.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (142 kB)
+Downloading propcache-0.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (236 kB)
+Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Downloading tblib-3.0.0-py3-none-any.whl (12 kB)
+Downloading typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+Downloading yarl-1.17.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (343 kB)
+Downloading zict-3.0.0-py2.py3-none-any.whl (43 kB)
+Downloading mypy_extensions-1.0.0-py3-none-any.whl (4.7 kB)
+Building wheels for collected packages: jsonpath-ng
+  Building wheel for jsonpath-ng (pyproject.toml): started
+  Building wheel for jsonpath-ng (pyproject.toml): finished with status 'done'
+  Created wheel for jsonpath-ng: filename=jsonpath_ng-1.7.0-py3-none-any.whl size=30100 sha256=27f7d214a53e64959c24828a21ebd87b63ba3f73e3d0a7525d0203ed67a6742d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-xblj7svl/wheels/6b/47/94/d8ae7a868e6642221f5caa53d6aedce4ff138c76c9f031a3da
+Successfully built jsonpath-ng
+Installing collected packages: sortedcontainers, ply, zict, tqdm, toolz, tenacity, tblib, regex, propcache, orjson, numpy, mypy-extensions, multidict, msgpack, marshmallow, locket, jsonpath-ng, jsonpatch, fsspec, frozenlist, distro, deepmerge, cloudpickle, click, aiosqlite, aiohappyeyeballs, yarl, typing-inspect, tiktoken, requests-toolbelt, partd, faiss-cpu, aiosignal, openai, langsmith, dataclasses-json, dask, aiohttp, langchain-core, distributed, langchain-text-splitters, langchain-openai, langchain, langchain-community, jupyter_ai_magics, jupyter_ai
+Successfully installed aiohappyeyeballs-2.4.3 aiohttp-3.11.4 aiosignal-1.3.1 aiosqlite-0.20.0 click-8.1.7 cloudpickle-3.1.0 dask-2024.11.2 dataclasses-json-0.6.7 deepmerge-2.0 distributed-2024.11.2 distro-1.9.0 faiss-cpu-1.9.0 frozenlist-1.5.0 fsspec-2024.10.0 jsonpatch-1.33 jsonpath-ng-1.7.0 jupyter_ai-2.15.0 jupyter_ai_magics-2.20.0 langchain-0.2.17 langchain-community-0.2.19 langchain-core-0.2.43 langchain-openai-0.1.20 langchain-text-splitters-0.2.4 langsmith-0.1.143 locket-1.0.0 marshmallow-3.23.1 msgpack-1.1.0 multidict-6.1.0 mypy-extensions-1.0.0 numpy-1.26.4 openai-1.39.0 orjson-3.10.11 partd-1.4.2 ply-3.11 propcache-0.2.0 regex-2024.11.6 requests-toolbelt-1.0.0 sortedcontainers-2.4.0 tblib-3.0.0 tenacity-8.5.0 tiktoken-0.8.0 toolz-1.0.0 tqdm-4.67.0 typing-inspect-0.9.0 yarl-1.17.2 zict-3.0.0
+ ---> Removed intermediate container 03530ba6c235
+ ---> efe1af52fb3f
+Step 40/54 : USER root
+ ---> Running in f667afb2c215
+ ---> Removed intermediate container f667afb2c215
+ ---> ead2a974f4df
+Step 41/54 : COPY --chown=1000:1000 src/ ${REPO_DIR}/
+ ---> 49468b21f947
+Step 42/54 : LABEL repo2docker.ref="8a16460d36e1a5bf2bdc1325a328a8e4adb0f704"
+ ---> Running in 5aafba47941f
+ ---> Removed intermediate container 5aafba47941f
+ ---> ab89c34e10c1
+Step 43/54 : LABEL repo2docker.repo="https://github.com/ssp24/jupyterai"
+ ---> Running in 6a51c2d428ed
+ ---> Removed intermediate container 6a51c2d428ed
+ ---> d4a3c8b2ae7d
+Step 44/54 : LABEL repo2docker.version="2024.07.0+28.g239c4f5"
+ ---> Running in 6e4e1ee08500
+ ---> Removed intermediate container 6e4e1ee08500
+ ---> 9ec94cd2b035
+Step 45/54 : USER ${NB_USER}
+ ---> Running in 083fd9309fc7
+ ---> Removed intermediate container 083fd9309fc7
+ ---> 51d5397eba7c
+Step 46/54 : RUN chmod +x binder/postBuild
+ ---> Running in b746febec033
+ ---> Removed intermediate container b746febec033
+ ---> 6dd295b18cb0
+Step 47/54 : RUN ./binder/postBuild
+ ---> Running in bb6c094eb213
+ ---> Removed intermediate container bb6c094eb213
+ ---> bcb1587ec8e3
+Step 48/54 : RUN chmod +x "${REPO_DIR}/binder/start"
+ ---> Running in 72e9a7f2d74e
+ ---> Removed intermediate container 72e9a7f2d74e
+ ---> cd261b2927c6
+Step 49/54 : ENV R2D_ENTRYPOINT="${REPO_DIR}/binder/start"
+ ---> Running in e0a7a66705ec
+ ---> Removed intermediate container e0a7a66705ec
+ ---> 44faa00f8a8b
+Step 50/54 : ENV PYTHONUNBUFFERED=1
+ ---> Running in 03d307946026
+ ---> Removed intermediate container 03d307946026
+ ---> 0def6ff41cb9
+Step 51/54 : COPY /python3-login /usr/local/bin/python3-login
+ ---> a7d35e4863f6
+Step 52/54 : COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+ ---> 544398d78f88
+Step 53/54 : ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
+ ---> Running in 8d4ce3dd9060
+ ---> Removed intermediate container 8d4ce3dd9060
+ ---> 0fb62b447a37
+Step 54/54 : CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+ ---> Running in 1f3ab263fcf9
+ ---> Removed intermediate container 1f3ab263fcf9
+ ---> 4b99f20988bf
+{"aux": {"ID": "sha256:4b99f20988bf48420c4f651c234345e09a8d47601e201b9032ce9916771f1ed9"}}Successfully built 4b99f20988bf
+Successfully tagged 166088433508.dkr.ecr.us-east-2.amazonaws.com/binderhub/ssp24-2djupyterai-04589b:8a16460d36e1a5bf2bdc1325a328a8e4adb0f704
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Pushing image
+Successfully pushed 166088433508.dkr.ecr.us-east-2.amazonaws.com/binderhub/ssp24-2djupyterai-04589b:8a16460d36e1a5bf2bdc1325a328a8e4adb0f704Exception ignored in: <function Application.__del__ at 0x7f40f3844c20>
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.11/site-packages/traitlets/config/application.py", line 1065, in __del__
+  File "/opt/venv/lib/python3.11/site-packages/traitlets/config/application.py", line 1054, in close_handlers
+  File "/opt/venv/lib/python3.11/site-packages/traitlets/traitlets.py", line 687, in __get__
+  File "/opt/venv/lib/python3.11/site-packages/traitlets/traitlets.py", line 666, in get
+TypeError: 'NoneType' object is not callable
+Built image, launching...
+Launching server...
+Server requested
